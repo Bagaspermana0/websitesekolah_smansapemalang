@@ -13,7 +13,7 @@
 
 ### Tautan Pengumpulan
 * **URL Website (Vercel):** `https://[nama-project-anda].vercel.app`
-* **Repository GitHub:** `https://github.com/[username-anda]/[nama-repo]`
+* **Repository GitHub:** `https://github.com/Bagaspermana0/websitesekolah_smansapemalang`
 
 ---
 
