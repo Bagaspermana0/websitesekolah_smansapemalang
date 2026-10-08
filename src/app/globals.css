@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* ── Palet PIONIR UGM (sesuai PRD bagian 3.1) ── */
+@theme {
+  --color-langit:       #A9E1F7;
+  --color-langit-muda:  #E8F7FD;
+  --color-gunung:       #2A5BA8;
+  --color-gunung-tua:   #173E7A;
+  --color-atap:         #D9234F;
+  --color-kuning:       #FFD83A;
+  --color-oranye:       #FF8A1F;
+  --color-krem:         #FFF1C9;
+  --color-hijau:        #2BAA8C;
+  --color-tinta:        #1B1F2A;
+
+  --font-judul: var(--font-baloo);
+  --font-body:  var(--font-dm-sans);
+}
+
+/* Utility kelas tambahan untuk kepastian font judul Baloo 2 */
+.font-judul {
+  font-family: var(--font-baloo), 'Baloo 2', cursive, sans-serif;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #1B1F2A;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Utility: force light mode ── */
+@media (prefers-color-scheme: dark) {
+  html { color-scheme: light; }
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-1%, -1%); }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
