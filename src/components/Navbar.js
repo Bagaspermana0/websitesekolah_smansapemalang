@@ -134,10 +134,10 @@ export default function Navbar() {
                 e.preventDefault();
                 setMenuTerbuka(true);
               }}
-              className={`p-3 rounded-xl transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 ${scrolled ? "bg-gray-100 text-gray-800 shadow-sm hover:bg-gray-200" : "bg-black/40 backdrop-blur-md text-white border border-white/30 shadow-lg hover:bg-black/60 [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.8))]"}`}
+              className={`p-2.5 rounded-2xl transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 ${scrolled ? "bg-orange-100 text-orange-600 shadow-sm border-2 border-orange-200 hover:bg-orange-500 hover:text-white" : "bg-white/20 backdrop-blur-md text-white border-2 border-white/40 shadow-[0_4px_10px_rgba(0,0,0,0.2)] hover:bg-white hover:text-orange-500"}`}
               aria-label="Open Menu"
             >
-              <FiMenu size={24} />
+              <FiMenu size={26} />
             </button>
           </div>
         </div>
@@ -150,46 +150,46 @@ export default function Navbar() {
 
         {/* ── Mobile Sidebar ── */}
         <div 
-          className={`fixed top-0 right-0 h-[100dvh] w-[280px] bg-white z-[70] shadow-2xl flex flex-col transition-transform duration-300 lg:hidden ${menuTerbuka ? "translate-x-0" : "translate-x-full"}`}
+          className={`fixed top-0 right-0 h-[100dvh] w-[300px] bg-[#fff9c4] border-l-[6px] border-[#fde047] z-[70] shadow-2xl flex flex-col transition-transform duration-300 lg:hidden ${menuTerbuka ? "translate-x-0" : "translate-x-full"} rounded-l-[2rem]`}
         >
-          <div className="flex items-center justify-between p-6 border-b border-gray-100">
-            <span className="font-black text-gray-900 text-lg">MENU</span>
+          <div className="flex items-center justify-between p-6 border-b-4 border-orange-200/50">
+            <span className="font-black text-orange-600 text-2xl tracking-tight">MENU</span>
             <button
               type="button"
               onClick={() => setMenuTerbuka(false)}
-              className="p-2 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 hover:text-gray-900 transition-colors"
+              className="p-2.5 bg-white border-2 border-orange-200 text-orange-600 rounded-full hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all shadow-sm"
             >
-              <FiX size={20} />
+              <FiX size={22} />
             </button>
           </div>
           
-          <nav className="flex flex-col gap-2 p-6 overflow-y-auto">
+          <nav className="flex flex-col gap-4 p-6 overflow-y-auto">
             {menuItems.map(({ label, href, ikon: Ikon }) => {
               const aktif = href === "/" ? pathname === "/" : pathname.startsWith(href);
               return (
                 <Link
                   key={label}
                   href={href}
-                  className={`flex items-center gap-4 px-4 py-4 rounded-xl text-sm font-semibold transition-all ${
-                    aktif ? "bg-orange-500 text-white shadow-md shadow-orange-500/20" : "text-gray-700 hover:bg-gray-50"
+                  className={`flex items-center gap-4 px-5 py-4 rounded-2xl text-base font-black transition-all border-2 ${
+                    aktif ? "bg-orange-500 text-white border-orange-600 shadow-[0_4px_0_#ea580c] -translate-y-1" : "bg-white text-gray-700 border-gray-100 hover:border-orange-300 hover:text-orange-500 shadow-sm hover:-translate-y-0.5"
                   }`}
                 >
-                  <Ikon size={20} className={aktif ? "text-white" : "text-orange-500"} />
+                  <Ikon size={22} className={aktif ? "text-white" : "text-orange-500"} />
                   {label}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="mt-auto p-6 border-t border-gray-100">
-            <div className="flex flex-col gap-3">
-              <span className="flex items-center gap-3 text-sm text-gray-600">
-                <div className="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center"><FiPhone size={14}/></div>
-                {sekolah.telepon}
+          <div className="mt-auto p-6 bg-white/50 border-t-4 border-orange-200/50 backdrop-blur-sm">
+            <div className="flex flex-col gap-4">
+              <span className="flex items-center gap-3 text-sm text-gray-700 font-bold bg-white p-3 rounded-xl shadow-sm border border-orange-100">
+                <div className="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center shrink-0"><FiPhone size={14}/></div>
+                <span className="truncate">{sekolah.telepon}</span>
               </span>
-              <span className="flex items-center gap-3 text-sm text-gray-600">
-                <div className="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center"><FiMail size={14}/></div>
-                {sekolah.email}
+              <span className="flex items-center gap-3 text-sm text-gray-700 font-bold bg-white p-3 rounded-xl shadow-sm border border-orange-100">
+                <div className="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center shrink-0"><FiMail size={14}/></div>
+                <span className="truncate">{sekolah.email}</span>
               </span>
             </div>
           </div>

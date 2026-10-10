@@ -55,66 +55,51 @@ export default async function DetailBeritaPage({ params }) {
   return (
     <>
       {/* Header artikel */}
-      <section className="bg-gradient-to-br from-[#0b1728] via-[#173e7a] to-[#1b2a4a] px-4 sm:px-6 pt-[150px] pb-16 relative overflow-hidden text-white">
+      <section className="bg-[#b3e5fc] px-4 sm:px-6 pt-[150px] pb-24 relative text-center">
         <div className="max-w-3xl mx-auto relative z-10">
           {/* Breadcrumb */}
           <Link
             href="/berita"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-300 hover:text-white transition-colors mb-4 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-orange-500/30"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-600 hover:text-orange-700 transition-colors mb-6 bg-white px-5 py-2 rounded-full border-2 border-orange-200 shadow-sm"
           >
-            <FiArrowLeft size={14} aria-hidden="true" />
+            <FiArrowLeft size={16} aria-hidden="true" />
             Kembali ke Berita
           </Link>
 
           {/* Badge dan tanggal */}
-          <div className="flex items-center gap-3 mb-3">
-            <span className="bg-orange-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <span className="bg-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-md">
               {kategori}
             </span>
             <time
               dateTime={tanggalISO}
-              className="flex items-center gap-1 text-xs text-slate-300 font-semibold"
+              className="flex items-center gap-1.5 text-sm text-gray-700 font-bold bg-white/50 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white"
             >
-              <FiCalendar size={13} aria-hidden="true" />
+              <FiCalendar size={14} aria-hidden="true" />
               {tanggal}
             </time>
           </div>
 
           {/* Judul */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-6 drop-shadow-[3px_3px_0px_#0284c7] uppercase tracking-tight">
             {judul}
           </h1>
 
           {/* Ringkasan */}
-          <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-medium">
+          <p className="text-gray-800 text-base sm:text-lg leading-relaxed font-semibold bg-white/40 p-4 rounded-2xl border border-white/60 shadow-inner">
             {ringkasan}
           </p>
-        </div>
-
-        {/* Wave Divider Transition */}
-        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none">
-          <svg
-            className="relative block w-full h-[40px] sm:h-[50px]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0,60 C320,110 520,10 720,70 C920,120 1120,20 1440,65 L1440,120 L0,120 Z"
-              fill="#fff7ed"
-            ></path>
-          </svg>
         </div>
       </section>
 
       {/* Gambar utama */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 -mt-8 relative z-20">
-        <div className="relative h-60 sm:h-80 md:h-96 border-4 border-orange-400 shadow-[8px_8px_0px_#fb923c] rounded-2xl overflow-hidden bg-gray-100">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-12 relative z-20">
+        <div className="relative h-64 sm:h-80 md:h-[28rem] rounded-[2rem] overflow-hidden bg-white p-2 border-[8px] border-white shadow-[0_10px_30px_rgba(0,0,0,0.1)]">
           <ImageSlot
             src={gambar}
             alt={judul}
             label={gambar.replace("/", "")}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-xl"
             priority
             sizes="(max-width: 768px) 90vw, 800px"
           />
@@ -122,28 +107,28 @@ export default async function DetailBeritaPage({ params }) {
       </div>
 
       {/* Isi artikel */}
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-        <div className="bg-white border-4 border-orange-400 shadow-[8px_8px_0px_#fb923c] rounded-2xl p-6 sm:p-10 space-y-5 text-gray-700 text-sm sm:text-base leading-relaxed font-normal">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+        <div className="bg-white border-2 border-gray-100 shadow-xl shadow-blue-500/5 rounded-[2rem] p-8 sm:p-12 space-y-6 text-gray-700 text-base sm:text-lg leading-relaxed font-medium text-justify">
           {isi.map((paragraf, i) => (
-            <p key={i} className="text-gray-800 leading-relaxed font-medium">
+            <p key={i} className="text-gray-800 leading-relaxed">
               {paragraf}
             </p>
           ))}
         </div>
 
         {/* Navigasi bawah */}
-        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 bg-[#fff9c4] rounded-[2rem] border-[6px] border-[#fde047] shadow-sm">
           <Link
             href="/berita"
-            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-bold text-sm shadow-lg shadow-orange-500/30 transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-orange-500 hover:bg-orange-600 text-white px-8 py-3.5 font-bold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-1 transition-all"
           >
-            <FiArrowLeft size={16} aria-hidden="true" />
-            Lihat Berita Lainnya
+            <FiArrowLeft size={18} aria-hidden="true" />
+            Berita Lainnya
           </Link>
 
-          <div className="flex items-center gap-1.5 text-xs text-gray-500 font-semibold">
-            <FiTag size={13} aria-hidden="true" />
-            Dokumentasi Informasi Resmi SMANSA
+          <div className="flex items-center gap-2 text-sm text-gray-600 font-bold bg-white px-5 py-2.5 rounded-full shadow-sm border border-orange-100">
+            <FiTag size={16} className="text-orange-500" aria-hidden="true" />
+            Informasi Resmi SMANSA
           </div>
         </div>
       </article>
