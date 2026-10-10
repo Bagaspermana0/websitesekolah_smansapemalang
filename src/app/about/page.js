@@ -114,9 +114,9 @@ export default function AboutPage() {
       <section className="py-20 px-4 sm:px-6 relative bg-white">
         <div className="max-w-6xl mx-auto">
           {/* Outer Blue Wrapper */}
-          <div className="bg-[#b3e5fc] border-[12px] border-[#81d4fa] p-4 sm:p-6 md:p-8 rounded-xl shadow-[0_10px_30px_rgba(3,105,161,0.2)]">
+          <div className="bg-[#b3e5fc] border-4 sm:border-[8px] md:border-[12px] border-[#81d4fa] p-2 sm:p-6 md:p-8 rounded-xl shadow-[0_10px_30px_rgba(3,105,161,0.2)]">
             {/* Inner Yellow Wrapper */}
-            <div className="bg-[#fff9c4] border-[6px] border-[#fde047] p-8 sm:p-10 md:p-12 rounded-xl flex flex-col items-center gap-8 shadow-inner relative overflow-hidden">
+            <div className="bg-[#fff9c4] border-4 sm:border-[6px] border-[#fde047] p-5 sm:p-10 md:p-12 rounded-xl flex flex-col items-center gap-8 shadow-inner relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl opacity-50 pointer-events-none"></div>
 
               <div className="relative z-10 w-full">
@@ -250,9 +250,9 @@ export default function AboutPage() {
       <section className="py-20 px-4 sm:px-6 relative bg-white">
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Outer Blue Wrapper */}
-          <div className="bg-[#b3e5fc] border-[12px] border-[#81d4fa] p-4 sm:p-6 md:p-8 rounded-xl shadow-[0_10px_30px_rgba(3,105,161,0.2)]">
+          <div className="bg-[#b3e5fc] border-4 sm:border-[8px] md:border-[12px] border-[#81d4fa] p-2 sm:p-6 md:p-8 rounded-xl shadow-[0_10px_30px_rgba(3,105,161,0.2)]">
             {/* Inner Yellow Wrapper */}
-            <div className="bg-[#fff9c4] border-[6px] border-[#fde047] p-8 sm:p-10 md:p-12 rounded-xl flex flex-col items-center gap-10 shadow-inner relative overflow-hidden">
+            <div className="bg-[#fff9c4] border-4 sm:border-[6px] border-[#fde047] p-5 sm:p-10 md:p-12 rounded-xl flex flex-col items-center gap-10 shadow-inner relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl opacity-50 pointer-events-none"></div>
 
               <div className="text-center relative z-10 w-full">
