@@ -28,16 +28,17 @@ export default function Navbar() {
     { label: "Beranda", href: "/",      ikon: FiHome },
     { label: "Profil",  href: "/about", ikon: FiUser },
     { label: "Berita",  href: "/berita", ikon: FiFileText },
+    { label: "Kontak",  href: "/#kontak", ikon: FiPhone },
   ];
 
   const taglines = [
-    <div key="tagline" className="flex items-center gap-2"><FiStar size={14} className="text-orange-400 shrink-0" /> <span>{sekolah.slogan}</span></div>,
-    <div key="alamat" className="flex items-center gap-2"><FiMapPin size={14} className="text-orange-400 shrink-0" /> <span>{sekolah.alamat}</span></div>,
+    <div key="tagline" className="flex items-center gap-2"><FiStar size={14} className="text-[#0f3756] shrink-0" /> <span>{sekolah.slogan}</span></div>,
+    <div key="alamat" className="flex items-center gap-2"><FiMapPin size={14} className="text-[#0f3756] shrink-0" /> <span>{sekolah.alamat}</span></div>,
     <div key="kontak" className="flex items-center gap-6">
-      <span className="flex items-center gap-2"><FiPhone size={14} className="text-orange-400 shrink-0" /> <span>{sekolah.telepon}</span></span>
-      <span className="flex items-center gap-2"><FiMail size={14} className="text-orange-400 shrink-0" /> <span>{sekolah.email}</span></span>
+      <span className="flex items-center gap-2"><FiPhone size={14} className="text-[#0f3756] shrink-0" /> <span>{sekolah.telepon}</span></span>
+      <span className="flex items-center gap-2"><FiMail size={14} className="text-[#0f3756] shrink-0" /> <span>{sekolah.email}</span></span>
     </div>,
-    <div key="tagline2" className="flex items-center gap-2"><FiStar size={14} className="text-orange-400 shrink-0" /> <span>Berprestasi, Berkarakter, Berwawasan Global</span></div>
+    <div key="tagline2" className="flex items-center gap-2"><FiStar size={14} className="text-[#0f3756] shrink-0" /> <span>Berprestasi, Berkarakter, Berwawasan Global</span></div>
   ];
   const [activeTagline, setActiveTagline] = useState(0);
   const [animClass, setAnimClass] = useState("translate-y-0 opacity-100");
@@ -66,16 +67,18 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
-      {/* ── Sliding Tagline & Info Bar (Navy Elegan) ── */}
-      <div
-        className={`bg-[#0b1728] border-b border-slate-800 text-slate-100 text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 flex justify-center items-center overflow-hidden h-9 ${
-          scrolled ? "h-0 opacity-0 py-0 border-b-0" : "opacity-100"
-        }`}
-      >
-        <div className={`transform w-full px-4 text-center flex justify-center items-center ${animClass}`}>
-          {taglines[activeTagline]}
+      {/* ── Sliding Tagline & Info Bar (Biru Seger, Hanya di Beranda) ── */}
+      {pathname === "/" && (
+        <div
+          className={`bg-[#85daf7] border-b-[2px] border-white/50 text-[#0f3756] text-xs sm:text-sm font-bold font-sans tracking-wide transition-all duration-300 flex justify-center items-center overflow-hidden h-9 relative z-10 shadow-[0_4px_15px_rgba(255,255,255,0.4)] ${
+            scrolled ? "h-0 opacity-0 py-0 border-b-0" : "opacity-100"
+          }`}
+        >
+          <div className={`transform w-full px-4 text-center flex justify-center items-center ${animClass}`}>
+            {taglines[activeTagline]}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Main Nav ── */}
       <div className={`mx-auto transition-all duration-300 ${scrolled ? "max-w-7xl mt-4 px-4 sm:px-6 lg:px-8" : "w-full"}`}>
@@ -90,7 +93,8 @@ export default function Navbar() {
                 label="logo.png"
                 showLabelText={false}
                 unoptimized
-                className="w-full h-full object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-300"
+                imageClassName="object-contain"
               />
             </div>
             <div className="flex items-center flex-1 min-w-0">
@@ -120,15 +124,6 @@ export default function Navbar() {
                 );
               })}
             </nav>
-            <div className={`ml-4 pl-4 border-l transition-colors duration-300 ${scrolled ? "border-gray-200" : "border-white/30"}`}>
-              <Link
-                href="/berita"
-                className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-600" : "bg-white/15 text-white backdrop-blur-md hover:bg-white/25 shadow-md [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.8))]"}`}
-                title="Cari"
-              >
-                <FiSearch size={18} />
-              </Link>
-            </div>
           </div>
 
           {/* Mobile Buttons */}
@@ -176,10 +171,10 @@ export default function Navbar() {
                   key={label}
                   href={href}
                   className={`flex items-center gap-4 px-4 py-4 rounded-xl text-sm font-semibold transition-all ${
-                    aktif ? "bg-[#49952E] text-white shadow-md shadow-[#49952E]/20" : "text-gray-700 hover:bg-gray-50"
+                    aktif ? "bg-orange-500 text-white shadow-md shadow-orange-500/20" : "text-gray-700 hover:bg-gray-50"
                   }`}
                 >
-                  <Ikon size={20} className={aktif ? "text-white" : "text-[#49952E]"} />
+                  <Ikon size={20} className={aktif ? "text-white" : "text-orange-500"} />
                   {label}
                 </Link>
               );
@@ -189,11 +184,11 @@ export default function Navbar() {
           <div className="mt-auto p-6 border-t border-gray-100">
             <div className="flex flex-col gap-3">
               <span className="flex items-center gap-3 text-sm text-gray-600">
-                <div className="w-8 h-8 rounded-full bg-green-50 text-[#49952E] flex items-center justify-center"><FiPhone size={14}/></div>
+                <div className="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center"><FiPhone size={14}/></div>
                 {sekolah.telepon}
               </span>
               <span className="flex items-center gap-3 text-sm text-gray-600">
-                <div className="w-8 h-8 rounded-full bg-green-50 text-[#49952E] flex items-center justify-center"><FiMail size={14}/></div>
+                <div className="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center"><FiMail size={14}/></div>
                 {sekolah.email}
               </span>
             </div>
@@ -203,3 +198,4 @@ export default function Navbar() {
     </header>
   );
 }
+

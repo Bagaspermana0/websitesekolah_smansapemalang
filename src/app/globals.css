@@ -32,10 +32,17 @@ html {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #fff7ed;
   color: #1B1F2A;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Polka dot grid background — persis seperti section asli di home page */
+.bg-polkadot {
+  background-color: #fff7ed;
+  background-image: radial-gradient(rgba(249, 115, 22, 0.10) 2px, transparent 2px);
+  background-size: 30px 30px;
 }
 
 /* ── Utility: force light mode ── */
@@ -51,3 +58,4 @@ body {
 @keyframes shimmer {
   100% { transform: translateX(100%); }
 }
+

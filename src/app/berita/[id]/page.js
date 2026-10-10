@@ -55,12 +55,12 @@ export default async function DetailBeritaPage({ params }) {
   return (
     <>
       {/* Header artikel */}
-      <section className="bg-gray-50 px-4 sm:px-6 pt-[160px] pb-10 sm:pb-14 relative overflow-hidden border-b border-gray-100">
-        <div className="max-w-3xl mx-auto">
+      <section className="bg-gradient-to-br from-[#0b1728] via-[#173e7a] to-[#1b2a4a] px-4 sm:px-6 pt-[150px] pb-16 relative overflow-hidden text-white">
+        <div className="max-w-3xl mx-auto relative z-10">
           {/* Breadcrumb */}
           <Link
             href="/berita"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-500 hover:text-[#49952E] transition-colors mb-4 bg-white px-3 py-1.5 rounded border border-gray-200 shadow-sm"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-orange-300 hover:text-white transition-colors mb-4 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-orange-500/30"
           >
             <FiArrowLeft size={14} aria-hidden="true" />
             Kembali ke Berita
@@ -68,12 +68,12 @@ export default async function DetailBeritaPage({ params }) {
 
           {/* Badge dan tanggal */}
           <div className="flex items-center gap-3 mb-3">
-            <span className="bg-[#49952E]/10 text-[#49952E] text-xs font-bold px-3 py-1 rounded uppercase">
+            <span className="bg-orange-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
               {kategori}
             </span>
             <time
               dateTime={tanggalISO}
-              className="flex items-center gap-1 text-xs text-gray-500 font-semibold"
+              className="flex items-center gap-1 text-xs text-slate-300 font-semibold"
             >
               <FiCalendar size={13} aria-hidden="true" />
               {tanggal}
@@ -81,20 +81,35 @@ export default async function DetailBeritaPage({ params }) {
           </div>
 
           {/* Judul */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-3">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight mb-3">
             {judul}
           </h1>
 
           {/* Ringkasan */}
-          <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
+          <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-medium">
             {ringkasan}
           </p>
+        </div>
+
+        {/* Wave Divider Transition */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none">
+          <svg
+            className="relative block w-full h-[40px] sm:h-[50px]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,60 C320,110 520,10 720,70 C920,120 1120,20 1440,65 L1440,120 L0,120 Z"
+              fill="#fff7ed"
+            ></path>
+          </svg>
         </div>
       </section>
 
       {/* Gambar utama */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-6 relative z-10">
-        <div className="relative h-56 sm:h-80 md:h-96 border border-gray-200 shadow-md overflow-hidden bg-gray-50">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 -mt-8 relative z-20">
+        <div className="relative h-60 sm:h-80 md:h-96 border-4 border-orange-400 shadow-[8px_8px_0px_#fb923c] rounded-2xl overflow-hidden bg-gray-100">
           <ImageSlot
             src={gambar}
             alt={judul}
@@ -107,10 +122,10 @@ export default async function DetailBeritaPage({ params }) {
       </div>
 
       {/* Isi artikel */}
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
-        <div className="bg-white border border-gray-200 shadow-sm p-6 sm:p-8 space-y-4 text-gray-700 text-sm sm:text-base leading-relaxed font-normal">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+        <div className="bg-white border-4 border-orange-400 shadow-[8px_8px_0px_#fb923c] rounded-2xl p-6 sm:p-10 space-y-5 text-gray-700 text-sm sm:text-base leading-relaxed font-normal">
           {isi.map((paragraf, i) => (
-            <p key={i} className="text-gray-700 leading-relaxed">
+            <p key={i} className="text-gray-800 leading-relaxed font-medium">
               {paragraf}
             </p>
           ))}
@@ -120,18 +135,19 @@ export default async function DetailBeritaPage({ params }) {
         <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link
             href="/berita"
-            className="inline-flex items-center gap-2 rounded bg-[#49952E] text-white px-5 py-3 font-bold text-sm hover:bg-[#3d7a26] transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-bold text-sm shadow-lg shadow-orange-500/30 transition-all"
           >
             <FiArrowLeft size={16} aria-hidden="true" />
             Lihat Berita Lainnya
           </Link>
 
-          <div className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-gray-500 font-semibold">
             <FiTag size={13} aria-hidden="true" />
-            Data simulasi profil sekolah
+            Dokumentasi Informasi Resmi SMANSA
           </div>
         </div>
       </article>
     </>
   );
 }
+

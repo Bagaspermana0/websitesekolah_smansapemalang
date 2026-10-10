@@ -30,11 +30,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="id" className={`${dmSans.variable} ${baloo2.variable}`}>
-      <body className="min-h-screen flex flex-col bg-white">
+      <body className="min-h-screen flex flex-col bg-polkadot">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 bg-polkadot">{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
+

@@ -1,112 +1,208 @@
 import Link from "next/link";
-import { FiMapPin, FiPhone, FiMail, FiExternalLink, FiGlobe } from "react-icons/fi";
+import { FiMapPin, FiClock, FiPhone, FiMail, FiGlobe, FiExternalLink, FiNavigation } from "react-icons/fi";
+import { FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
 import sekolah from "@/data/sekolah";
-import ImageSlot from "./ImageSlot";
 
 export default function Footer() {
   return (
-    <footer className="bg-gunung-tua text-white border-t-4 border-oranye">
-      {/* ── Content Footer ── */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
-        {/* Kolom 1: Logo & Profil (md:col-span-5) */}
-        <div className="md:col-span-5">
-          <div className="flex items-center gap-3.5 mb-4">
-            <div className="w-12 h-12 shrink-0">
-              <ImageSlot
-                src={sekolah.aset.logo}
-                alt={`Logo ${sekolah.nama}`}
-                label="logo.png"
-                showLabelText={false}
-                unoptimized
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div>
-              <span className="font-judul text-lg sm:text-xl font-extrabold text-white tracking-wide">
-                {sekolah.nama}
-              </span>
-            </div>
+    <footer className="bg-[#85daf7] text-[#0f3756] border-t-4 border-[#2A5BA8] relative overflow-hidden font-sans">
+      {/* ── Main Content Container ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        
+        {/* ── Kolom Kiri: Judul, Subtitle, Info Kontak & Sosmed (lg:col-span-5) ── */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            {/* Header Sekolah */}
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f3756] tracking-tight uppercase mb-2">
+              {sekolah.nama}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#18537e] font-semibold mb-6 leading-relaxed max-w-md">
+              SMA Rujukan Kabupaten Pemalang • Penggerak Mutu Pendidikan dengan Akreditasi A (96).
+            </p>
+
+            {/* List Detail Kontak dengan Ikon */}
+            <ul className="space-y-3.5 text-xs sm:text-sm font-semibold text-[#14486d] mb-8">
+              <li className="flex items-start gap-3">
+                <FiMapPin size={18} className="mt-0.5 shrink-0 text-[#0f3756]" />
+                <span className="leading-snug">{sekolah.alamat}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <FiClock size={18} className="shrink-0 text-[#0f3756]" />
+                <span>Senin – Jumat: 07.00 – 15.30 WIB</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <FiPhone size={18} className="shrink-0 text-[#0f3756]" />
+                <span>Help Desk / Telepon: {sekolah.telepon}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <FiMail size={18} className="shrink-0 text-[#0f3756]" />
+                <a href={`mailto:${sekolah.email}`} className="hover:underline text-[#0f3756]">
+                  {sekolah.email}
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <p className="text-langit-muda text-sm leading-relaxed mb-4 max-w-sm">
-            {sekolah.slogan}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="bg-hijau text-white px-3 py-1 rounded-full font-bold">
-              Akreditasi {sekolah.akreditasi} (Nilai {sekolah.nilaiAkreditasi})
-            </span>
-            <span className="bg-white/10 text-langit px-3 py-1 rounded-full font-bold">
-              NPSN {sekolah.npsn}
-            </span>
-          </div>
-        </div>
-
-        {/* Kolom 2: Kontak Informasi (md:col-span-4) */}
-        <div className="md:col-span-4">
-          <h3 className="font-bold text-kuning mb-4 uppercase text-xs tracking-widest border-b border-white/15 pb-2">
-            Kontak Sekolah
-          </h3>
-          <ul className="space-y-3 text-xs sm:text-sm text-langit-muda">
-            <li className="flex items-start gap-2.5">
-              <FiMapPin size={16} className="mt-0.5 shrink-0 text-oranye" aria-hidden="true" />
-              <span className="leading-snug">{sekolah.alamat}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <FiPhone size={16} className="text-oranye shrink-0" aria-hidden="true" />
-              <span>{sekolah.telepon}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <FiMail size={16} className="text-oranye shrink-0" aria-hidden="true" />
-              <span>{sekolah.email}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <FiGlobe size={16} className="text-oranye shrink-0" aria-hidden="true" />
-              <span>{sekolah.website}</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Kolom 3: Navigasi Cepat (md:col-span-3) */}
-        <div className="md:col-span-3">
-          <h3 className="font-bold text-kuning mb-4 uppercase text-xs tracking-widest border-b border-white/15 pb-2">
-            Navigasi Halaman
-          </h3>
-          <ul className="space-y-2.5 text-xs sm:text-sm">
-            <li>
-              <Link href="/" className="text-langit-muda hover:text-kuning transition-colors flex items-center gap-1.5 font-medium">
-                <span className="text-oranye">›</span> Beranda Utama
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="text-langit-muda hover:text-kuning transition-colors flex items-center gap-1.5 font-medium">
-                <span className="text-oranye">›</span> Profil Tentang Sekolah
-              </Link>
-            </li>
-            <li>
-              <Link href="/berita" className="text-langit-muda hover:text-kuning transition-colors flex items-center gap-1.5 font-medium">
-                <span className="text-oranye">›</span> Berita &amp; Informasi
-              </Link>
-            </li>
-            <li>
+          {/* ── Tombol Media Sosial Kotak ── */}
+          <div>
+            <div className="flex items-center gap-2.5">
               <a
-                href={`https://${sekolah.website}`}
+                href={sekolah.sosmed.youtube.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-langit-muda hover:text-kuning transition-colors flex items-center gap-1.5 font-medium"
+                className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
+                title={sekolah.sosmed.youtube.label}
               >
-                <span className="text-oranye">›</span> Website Resmi
-                <FiExternalLink size={12} aria-hidden="true" />
+                <FaYoutube size={18} />
               </a>
-            </li>
-          </ul>
+              <a
+                href={sekolah.sosmed.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
+                title={sekolah.sosmed.instagram.label}
+              >
+                <FaInstagram size={18} />
+              </a>
+              <a
+                href={sekolah.sosmed.facebook.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
+                title={sekolah.sosmed.facebook.label}
+              >
+                <FaFacebookF size={16} />
+              </a>
+              <a
+                href={`mailto:${sekolah.email}`}
+                className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
+                title="Kirim Email"
+              >
+                <FiMail size={18} />
+              </a>
+              <a
+                href={`http://${sekolah.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
+                title="Website Resmi"
+              >
+                <FiGlobe size={18} />
+              </a>
+            </div>
+          </div>
         </div>
+
+        {/* ── Kolom Kanan: Navigasi Halaman & Peta Google Maps (lg:col-span-7) ── */}
+        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
+          
+          {/* Column 1: Eksplorasi */}
+          <div>
+            <h3 className="font-extrabold text-[#0f3756] mb-4 text-sm tracking-wide">
+              Eksplorasi
+            </h3>
+            <ul className="space-y-2.5 text-xs sm:text-sm font-semibold text-[#18537e]">
+              <li>
+                <Link href="/" className="hover:text-[#0f3756] transition-colors block">
+                  Beranda Utama
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                  Profil Sekolah
+                </Link>
+              </li>
+              <li>
+                <Link href="/berita" className="hover:text-[#0f3756] transition-colors block">
+                  Berita &amp; Informasi
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#visimisi" className="hover:text-[#0f3756] transition-colors block">
+                  Visi &amp; Misi
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Aktivitas & Informasi */}
+          <div>
+            <h3 className="font-extrabold text-[#0f3756] mb-4 text-sm tracking-wide">
+              Aktivitas
+            </h3>
+            <ul className="space-y-2.5 text-xs sm:text-sm font-semibold text-[#18537e]">
+              <li>
+                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                  Kegiatan Ekskul
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                  Galeri Kampus
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                  Data Identitas DAPODIK
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={`http://${sekolah.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#0f3756] transition-colors inline-flex items-center gap-1"
+                >
+                  Portal Web Resmi <FiExternalLink size={12} />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Peta Google Maps Embed */}
+          <div>
+            <h3 className="font-extrabold text-[#0f3756] mb-4 text-sm tracking-wide flex items-center gap-1.5">
+              <FiNavigation className="text-[#0f3756]" size={14} /> Peta Lokasi
+            </h3>
+            <div className="bg-white p-1.5 rounded-xl border-2 border-[#0284c7] shadow-[3px_3px_0px_#0284c7] overflow-hidden">
+              <div className="relative w-full h-[120px] rounded-lg overflow-hidden">
+                <iframe
+                  src={sekolah.googleMapsEmbed}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Peta Lokasi SMAN 1 Pemalang"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <a
+                href={sekolah.googleMaps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1.5 w-full bg-[#38bdf8] hover:bg-[#0284c7] hover:text-white text-[#0f3756] text-xs font-bold py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1"
+              >
+                Buka Peta Google Maps <FiExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
       {/* ── Bottom Bar Copyright ── */}
-      <div className="border-t border-white/10 py-4 px-4 text-center text-xs text-langit/70">
-        &copy; 2026 SMA Negeri 1 Pemalang. Dibuat untuk tugas UTS Pemrograman Web.
+      <div className="border-t border-[#60c5ed] bg-[#72cefa] py-4 px-4 text-center text-xs font-bold text-[#0f3756]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2">
+          <div>
+            &copy; 2026 <span className="underline">{sekolah.nama}</span>. Dibuat untuk tugas UTS Pemrograman Web.
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
+
+

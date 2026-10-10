@@ -11,29 +11,47 @@ const sekolah = {
   alamat: "Jl. Jend. Gatot Subroto, Kel. Bojongbata, Kec. Pemalang, Kab. Pemalang, Jawa Tengah 52319",
   alamatSingkat: "Jl. Jend. Gatot Subroto, Pemalang",
   telepon: "(0284) 321437",
-  // Email placeholder — belum terverifikasi
-  email: "info@sman1-pemalang.sch.id",
+  email: "sman1pml.jateng@gmail.com",
   website: "sman1-pemalang.sch.id",
   akreditasi: "A",
   nilaiAkreditasi: 96,
   tahunAkreditasi: 2022,
   kurikulum: "Kurikulum Merdeka",
-  // Kepala sekolah dari Dapodik — verifikasi ulang sebelum tayang
   kepalaSekolah: "Uti Wisnuharti",
-  // SK pendirian resmi
   skPendirian: "5 Januari 1963",
   slogan: "Berwawasan Global, Berakhlak Mulia, Berprestasi Prima",
   googleMaps: "https://maps.google.com/?q=SMA+Negeri+1+Pemalang",
+  googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.916183344682!2d109.38719537499625!3d-6.900627993098679!2m3!1f0!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fdbbf4b7c6209%3A0x6b40bd4ef9081e7d!2sSMA%20Negeri%201%20Pemalang!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
+
+  // Media Sosial Resmi SMAN 1 Pemalang
+  sosmed: {
+    instagram: {
+      url: "https://www.instagram.com/sman1pemalang/",
+      handle: "@sman1pemalang",
+      label: "Instagram Resmi",
+    },
+    youtube: {
+      url: "https://www.youtube.com/@SMANSAMEDIA",
+      handle: "SMANSA MEDIA",
+      label: "YouTube Channel",
+    },
+    facebook: {
+      url: "https://www.facebook.com/sman1pemalang/",
+      handle: "SMA Negeri 1 Pemalang",
+      label: "Facebook Fanpage",
+    },
+  },
 
   // Path aset — taruh file di folder public/ sesuai nama ini
   aset: {
     logo:   "/logo_smansa.png?v=2026",
     hero:   "/smansa.png",
-    gedung: "/smansa_foto1.webp",
-    foto1:  "/smansa_foto1.webp",
-    foto2:  "/smansa_foto2.webp",
-    foto3:  "/smansa_foto3.webp",
+    gedung: "/ruang_aula_utama.webp",
+    foto1:  "/ruang_aula_utama.webp",
+    foto2:  "/ruang_kelas.webp",
+    foto3:  "/lingkungan_sekolah.webp",
   },
 };
 
 export default sekolah;
+

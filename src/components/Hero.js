@@ -1,6 +1,7 @@
 import Link from "next/link";
 import sekolah from "@/data/sekolah";
 import ImageSlot from "./ImageSlot";
+import { FiMousePointer } from "react-icons/fi";
 
 export default function Hero() {
   return (
@@ -19,8 +20,16 @@ export default function Hero() {
         {/* No dark overlay, keeping the background clean as requested */}
       </div>
 
-      {/* Pure image banner, content removed as requested */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center pointer-events-none px-6">
+      {/* ── Action Buttons in Hero ── */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-end pb-32 sm:pb-40 px-6 pointer-events-none">
+        <div className="flex flex-wrap items-center justify-center gap-4 pointer-events-auto">
+          <Link
+            href="/#kontak"
+            className="bg-orange-500 hover:bg-orange-600 border-2 border-white text-white font-bold py-3.5 px-10 rounded-full shadow-xl shadow-orange-500/40 hover:shadow-2xl hover:shadow-orange-500/60 hover:-translate-y-1 transition-all text-lg flex items-center justify-center gap-3"
+          >
+            Pendaftaran Siswa Baru <FiMousePointer size={24} className="text-white" />
+          </Link>
+        </div>
       </div>
 
       {/* Soft gradient blend into cream section */}
