@@ -12,7 +12,7 @@ export default function BeritaCard({ berita }) {
         <ImageSlot
           src={gambar}
           alt={judul}
-          label={gambar.replace("/", "")}
+          label={gambar?.startsWith("data:") ? "foto-berita" : (gambar?.replace("/", "") || "berita")}
           className="w-full h-full"
           imageClassName="object-cover transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import BeritaCard from "@/components/BeritaCard";
+import BeritaTerbaruClient from "@/components/BeritaTerbaruClient";
 import VideoPlayer from "@/components/VideoPlayer";
 import ImageSlot from "@/components/ImageSlot";
 import { FiArrowRight, FiAward, FiUsers, FiBookOpen, FiMapPin, FiPhone, FiMail } from "react-icons/fi";
@@ -128,11 +129,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {beritaTerbaru.map((b) => (
-              <BeritaCard key={b.id} berita={b} />
-            ))}
-          </div>
+          <BeritaTerbaruClient initialBerita={beritaTerbaru} />
         </div>
       </section>
 

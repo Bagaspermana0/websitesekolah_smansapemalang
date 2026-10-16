@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
+import IdentitasTableClient from "@/components/IdentitasTableClient";
 import {
   FiMapPin,
   FiPhone,
@@ -183,22 +184,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-white rounded-[2rem] border border-gray-100 shadow-xl shadow-orange-500/10 overflow-hidden flex flex-col justify-between">
-              <div className="p-6 sm:p-8 overflow-x-auto">
-                <table className="w-full text-sm sm:text-base">
-                  <tbody>
-                    {identitas.map(({ label, nilai }, i) => (
-                      <tr key={label} className="border-b border-gray-100 last:border-0 hover:bg-orange-50/50 transition-colors">
-                        <td className="py-4 pr-4 font-bold text-gray-800 w-1/3 align-top">
-                          {label}
-                        </td>
-                        <td className="py-4 text-gray-600 font-medium">{nilai}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <IdentitasTableClient initialSekolah={sekolah} />
           </div>
         </div>
       </section>

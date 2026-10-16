@@ -1,6 +1,5 @@
-import BeritaCard from "@/components/BeritaCard";
+import BeritaListClient from "@/components/BeritaListClient";
 import beritaData from "@/data/berita";
-import { FiFileText } from "react-icons/fi";
 
 export const metadata = {
   title: "Berita — SMA Negeri 1 Pemalang",
@@ -38,27 +37,10 @@ export default function BeritaPage() {
         </div>
       </section>
 
-      {/* Grid Berita */}
+      {/* Grid Berita dengan localStorage sync */}
       <section className="py-20 px-4 sm:px-6 relative bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-800 tracking-tight">
-              Semua Berita SMANSA
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base mt-2 font-medium">
-              Menampilkan {beritaData.length} berita &amp; kegiatan
-            </p>
-          </div>
-
-          {/* Grid responsif: 1 kolom HP, 2 tablet, 3 desktop */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {beritaData.map((b) => (
-              <BeritaCard key={b.id} berita={b} />
-            ))}
-          </div>
-        </div>
+        <BeritaListClient initialBerita={beritaData} />
       </section>
     </>
   );
 }
-

@@ -1,14 +1,44 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FiMapPin, FiClock, FiPhone, FiMail, FiGlobe, FiExternalLink, FiNavigation } from "react-icons/fi";
+import { usePathname } from "next/navigation";
+import {
+  FiMapPin,
+  FiClock,
+  FiPhone,
+  FiMail,
+  FiGlobe,
+  FiExternalLink,
+  FiNavigation,
+  FiLock,
+} from "react-icons/fi";
 import { FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
-import sekolah from "@/data/sekolah";
+import defaultSekolah from "@/data/sekolah";
+import { getSekolahData } from "@/utils/storage";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const [sekolah, setSekolah] = useState(defaultSekolah);
+
+  useEffect(() => {
+    setSekolah(getSekolahData());
+    const handleUpdate = () => {
+      setSekolah(getSekolahData());
+    };
+    window.addEventListener("sman1_data_updated", handleUpdate);
+    return () => window.removeEventListener("sman1_data_updated", handleUpdate);
+  }, []);
+
+  // Sembunyikan footer di halaman /admin
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-[#85daf7] text-[#0f3756] border-t-4 border-[#2A5BA8] relative overflow-hidden font-sans">
       {/* ── Main Content Container ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
-        
         {/* ── Kolom Kiri: Judul, Subtitle, Info Kontak & Sosmed (lg:col-span-5) ── */}
         <div className="lg:col-span-5 flex flex-col justify-between">
           <div>
@@ -17,7 +47,7 @@ export default function Footer() {
               {sekolah.nama}
             </h2>
             <p className="text-xs sm:text-sm text-[#18537e] font-semibold mb-6 leading-relaxed max-w-md">
-              SMA Rujukan Kabupaten Pemalang • Penggerak Mutu Pendidikan dengan Akreditasi A (96).
+              SMA Rujukan Kabupaten Pemalang • Penggerak Mutu Pendidikan dengan Akreditasi {sekolah.akreditasi} ({sekolah.nilaiAkreditasi || 96}).
             </p>
 
             {/* List Detail Kontak dengan Ikon */}
@@ -36,7 +66,10 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <FiMail size={18} className="shrink-0 text-[#0f3756]" />
-                <a href={`mailto:${sekolah.email}`} className="hover:underline text-[#0f3756]">
+                <a
+                  href={`mailto:${sekolah.email}`}
+                  className="hover:underline text-[#0f3756]"
+                >
                   {sekolah.email}
                 </a>
               </li>
@@ -47,29 +80,29 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2.5">
               <a
-                href={sekolah.sosmed.youtube.url}
+                href={sekolah.sosmed?.youtube?.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
-                title={sekolah.sosmed.youtube.label}
+                title={sekolah.sosmed?.youtube?.label || "YouTube"}
               >
                 <FaYoutube size={18} />
               </a>
               <a
-                href={sekolah.sosmed.instagram.url}
+                href={sekolah.sosmed?.instagram?.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
-                title={sekolah.sosmed.instagram.label}
+                title={sekolah.sosmed?.instagram?.label || "Instagram"}
               >
                 <FaInstagram size={18} />
               </a>
               <a
-                href={sekolah.sosmed.facebook.url}
+                href={sekolah.sosmed?.facebook?.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-[#38bdf8] border-2 border-[#0284c7] text-[#0f3756] shadow-[2px_2px_0px_#0284c7] hover:bg-white hover:scale-105 transition-all flex items-center justify-center"
-                title={sekolah.sosmed.facebook.label}
+                title={sekolah.sosmed?.facebook?.label || "Facebook"}
               >
                 <FaFacebookF size={16} />
               </a>
@@ -95,7 +128,6 @@ export default function Footer() {
 
         {/* ── Kolom Kanan: Navigasi Halaman & Peta Google Maps (lg:col-span-7) ── */}
         <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
-          
           {/* Column 1: Eksplorasi */}
           <div>
             <h3 className="font-extrabold text-[#0f3756] mb-4 text-sm tracking-wide">
@@ -103,22 +135,34 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm font-semibold text-[#18537e]">
               <li>
-                <Link href="/" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Beranda Utama
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/about"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Profil Sekolah
                 </Link>
               </li>
               <li>
-                <Link href="/berita" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/berita"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Berita &amp; Informasi
                 </Link>
               </li>
               <li>
-                <Link href="/about#visimisi" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/about#visimisi"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Visi &amp; Misi
                 </Link>
               </li>
@@ -132,17 +176,26 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm font-semibold text-[#18537e]">
               <li>
-                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/about"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Kegiatan Ekskul
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/about"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Galeri Kampus
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#0f3756] transition-colors block">
+                <Link
+                  href="/about"
+                  className="hover:text-[#0f3756] transition-colors block"
+                >
                   Data Identitas DAPODIK
                 </Link>
               </li>
@@ -188,21 +241,26 @@ export default function Footer() {
               </a>
             </div>
           </div>
-
         </div>
-
       </div>
 
-      {/* ── Bottom Bar Copyright ── */}
-      <div className="border-t border-[#60c5ed] bg-[#72cefa] py-4 px-4 text-center text-xs font-bold text-[#0f3756]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2">
+      {/* ── Bottom Bar Copyright & Portal Admin Link ── */}
+      <div className="border-t border-[#60c5ed] bg-[#72cefa] py-4 px-4 text-xs font-bold text-[#0f3756]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
             &copy; 2026 <span className="underline">{sekolah.nama}</span>. Dibuat untuk tugas UTS Pemrograman Web.
+          </div>
+          <div>
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 text-xs text-[#0f3756] font-extrabold bg-white/70 hover:bg-white px-3.5 py-1.5 rounded-full transition-all border border-[#0f3756]/20 shadow-sm hover:scale-105"
+            >
+              <FiLock size={13} className="text-orange-600" />
+              <span>Portal Admin / Login</span>
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
-

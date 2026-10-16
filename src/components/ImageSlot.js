@@ -52,6 +52,8 @@ export default function ImageSlot({
     );
   }
 
+  const isUnoptimized = unoptimized || (typeof src === "string" && src.startsWith("data:"));
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {fill ? (
@@ -61,7 +63,7 @@ export default function ImageSlot({
           fill
           priority={priority}
           sizes={sizes}
-          unoptimized={unoptimized}
+          unoptimized={isUnoptimized}
           className={imageClassName}
           onError={() => setError(true)}
         />
@@ -73,7 +75,7 @@ export default function ImageSlot({
           height={height}
           priority={priority}
           sizes={sizes}
-          unoptimized={unoptimized}
+          unoptimized={isUnoptimized}
           className={imageClassName}
           onError={() => setError(true)}
         />
