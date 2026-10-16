@@ -3,26 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  FiLock,
-  FiUser,
-  FiFileText,
-  FiEdit,
-  FiTrash2,
-  FiPlus,
-  FiExternalLink,
-  FiLogOut,
-  FiCheckCircle,
-  FiAlertCircle,
-  FiSearch,
-  FiHome,
-  FiImage,
-  FiSave,
-  FiX,
-  FiKey,
-  FiShield,
-  FiEye,
-} from "react-icons/fi";
-import {
   getBeritaList,
   saveBeritaItem,
   deleteBeritaItem,
@@ -100,7 +80,6 @@ export default function AdminPage() {
     }, 3500);
   };
 
-  // 1. Initial Load & Auth Check
   useEffect(() => {
     setMounted(true);
     const authStatus = isAuthenticated();
@@ -131,7 +110,6 @@ export default function AdminPage() {
     });
   };
 
-  // ── Handler Login ──
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setLoginError("");
@@ -147,12 +125,11 @@ export default function AdminPage() {
         setLoginError(res.message);
       }
       setIsLoggingIn(false);
-    }, 400);
+    }, 300);
   };
 
-  // ── Handler Logout ──
   const handleLogout = () => {
-    if (confirm("Apakah Anda yakin ingin logout dari dashboard admin?")) {
+    if (confirm("Apakah Anda yakin ingin logout?")) {
       logoutAdmin();
       setLoggedIn(false);
       setLoginForm({ username: "", password: "" });
@@ -160,7 +137,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Handler Modal Berita ──
   const openAddModal = () => {
     setEditingItem(null);
     const today = new Date();
@@ -197,7 +173,6 @@ export default function AdminPage() {
     setIsModalOpen(true);
   };
 
-  // ── Handler Upload Gambar Berita ──
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -215,7 +190,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Simpan Berita (Tambah / Edit) ──
   const handleSaveBerita = (e) => {
     e.preventDefault();
     if (!beritaForm.judul.trim()) {
@@ -244,7 +218,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Hapus Berita ──
   const handleConfirmDelete = () => {
     if (!deleteTarget) return;
     deleteBeritaItem(deleteTarget.id);
@@ -253,7 +226,6 @@ export default function AdminPage() {
     showToast("Berita berhasil dihapus!", "info");
   };
 
-  // ── Simpan Info Profil Sekolah ──
   const handleSaveSekolah = (e) => {
     e.preventDefault();
     try {
@@ -266,7 +238,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Ubah Password Admin ──
   const handleChangePassword = (e) => {
     e.preventDefault();
     setPasswordMsg({ type: "", text: "" });
@@ -294,62 +265,55 @@ export default function AdminPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#E8F7FD] flex items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#2A5BA8] border-t-transparent"></div>
+      <div className="min-h-screen bg-[#fff7ed] flex items-center justify-center p-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-orange-500 border-t-transparent"></div>
       </div>
     );
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // TAMPILAN 1: HALAMAN LOGIN ADMIN
+  // TAMPILAN 1: HALAMAN LOGIN ADMIN (Modern, Soft, Style Home)
   // ═══════════════════════════════════════════════════════════════
   if (!loggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#E8F7FD] via-white to-[#A9E1F7]/30 flex flex-col justify-center items-center p-4 sm:p-6 font-sans">
-        {/* Tombol kembali ke website publik */}
+      <div className="min-h-screen bg-[#fff7ed] flex flex-col justify-center items-center p-4 sm:p-6 font-sans">
+        {/* Tombol kembali ke website sekolah */}
         <div className="mb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-white text-[#173E7A] hover:text-orange-600 px-5 py-2.5 rounded-full font-bold text-sm shadow-md border-2 border-[#173E7A]/20 hover:-translate-y-0.5 transition-all"
+            className="inline-flex items-center gap-2 bg-white text-gray-700 hover:text-orange-600 px-6 py-2.5 rounded-full font-bold text-sm shadow-md shadow-orange-500/10 border border-gray-100 hover:-translate-y-0.5 transition-all"
           >
-            <FiHome size={16} />
-            Kembali ke Website Sekolah
+            &larr; Kembali ke Website Sekolah
           </Link>
         </div>
 
-        <div className="w-full max-w-md bg-white rounded-[2.5rem] border-4 border-[#173E7A] shadow-[8px_8px_0px_#173E7A] p-8 sm:p-10 relative overflow-hidden">
-          {/* Header Card */}
-          <div className="text-center mb-8">
-            <div className="w-20 h-20 mx-auto mb-4 bg-orange-100 rounded-2xl border-2 border-orange-500 shadow-[3px_3px_0px_#ea580c] flex items-center justify-center text-orange-600">
-              <FiLock size={36} />
+        {/* Outer Blue Wrapper (Persis seperti section profil di Home) */}
+        <div className="w-full max-w-md bg-[#b3e5fc] border-4 sm:border-[8px] border-[#81d4fa] p-3 sm:p-4 rounded-[2.5rem] shadow-2xl shadow-sky-500/20">
+          {/* Inner Clean Card */}
+          <div className="bg-white rounded-[2rem] p-8 sm:p-10 border border-white shadow-sm">
+            <div className="text-center mb-8">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">
+                SMAN 1 Pemalang
+              </span>
+              <h1 className="text-3xl font-black text-gray-900 tracking-tight">
+                Portal Admin
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                Silakan masuk untuk mengelola berita &amp; profil sekolah
+              </p>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#173E7A] tracking-tight uppercase">
-              PORTAL ADMIN
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-600 font-bold mt-1">
-              SMA Negeri 1 Pemalang
-            </p>
-          </div>
 
-          {/* Alert Error */}
-          {loginError && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border-2 border-red-200 text-red-700 text-xs sm:text-sm font-bold flex items-center gap-2.5">
-              <FiAlertCircle size={18} className="shrink-0 text-red-600" />
-              <span>{loginError}</span>
-            </div>
-          )}
+            {loginError && (
+              <div className="mb-6 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold text-center">
+                {loginError}
+              </div>
+            )}
 
-          {/* Form Login */}
-          <form onSubmit={handleLoginSubmit} className="space-y-5">
-            <div>
-              <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                Username
-              </label>
-              <div className="relative">
-                <FiUser
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                  size={18}
-                />
+            <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Username
+                </label>
                 <input
                   type="text"
                   required
@@ -358,20 +322,14 @@ export default function AdminPage() {
                     setLoginForm({ ...loginForm, username: e.target.value })
                   }
                   placeholder="Masukkan username"
-                  className="w-full pl-11 pr-4 py-3 bg-[#E8F7FD]/50 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none transition-all text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl font-medium text-gray-800 outline-none text-sm transition-all focus:ring-4 focus:ring-orange-500/10"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                Password
-              </label>
-              <div className="relative">
-                <FiKey
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                  size={18}
-                />
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Password
+                </label>
                 <input
                   type="password"
                   required
@@ -380,39 +338,30 @@ export default function AdminPage() {
                     setLoginForm({ ...loginForm, password: e.target.value })
                   }
                   placeholder="Masukkan password"
-                  className="w-full pl-11 pr-4 py-3 bg-[#E8F7FD]/50 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none transition-all text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl font-medium text-gray-800 outline-none text-sm transition-all focus:ring-4 focus:ring-orange-500/10"
                 />
               </div>
-            </div>
 
-            <button
-              type="submit"
-              disabled={isLoggingIn}
-              className="w-full bg-orange-500 hover:bg-orange-600 active:translate-y-0.5 text-white py-3.5 rounded-xl font-black text-sm uppercase tracking-wider border-2 border-orange-600 shadow-[0_4px_0_#ea580c] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer mt-6"
-            >
-              {isLoggingIn ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Memverifikasi...
-                </>
-              ) : (
-                <>
-                  <FiLock size={16} />
-                  Masuk ke Dashboard
-                </>
-              )}
-            </button>
-          </form>
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isLoggingIn}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 px-6 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all text-sm uppercase tracking-wide cursor-pointer"
+                >
+                  {isLoggingIn ? "Memverifikasi..." : "Masuk ke Dashboard"}
+                </button>
+              </div>
+            </form>
 
-          {/* Info Akun Default UTS */}
-          <div className="mt-8 p-3.5 rounded-2xl bg-[#FFF1C9] border-2 border-[#FFD83A] text-[#173E7A] text-xs font-semibold">
-            <div className="flex items-center gap-1.5 font-black uppercase text-[11px] mb-1 text-orange-700">
-              <FiShield size={13} />
-              Kredensial Default (UTS)
-            </div>
-            <div className="flex justify-between items-center text-gray-700">
-              <span>Username: <strong className="text-black">admin</strong></span>
-              <span>Password: <strong className="text-black">admin123</strong></span>
+            {/* Kotak Info Kuning (Persis inner card kuning di Home) */}
+            <div className="mt-8 p-4 rounded-xl bg-[#fff9c4] border-2 border-[#fde047] text-gray-800 text-xs">
+              <div className="font-bold text-orange-700 mb-1">
+                Kredensial Default:
+              </div>
+              <div className="flex justify-between items-center text-gray-700 font-medium">
+                <span>Username: <strong className="text-black">admin</strong></span>
+                <span>Password: <strong className="text-black">admin123</strong></span>
+              </div>
             </div>
           </div>
         </div>
@@ -421,7 +370,7 @@ export default function AdminPage() {
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // TAMPILAN 2: DASHBOARD ADMIN
+  // TAMPILAN 2: DASHBOARD ADMIN (Style Home: Biru, Kuning, Putih, Orange)
   // ═══════════════════════════════════════════════════════════════
   const filteredBerita = beritaList.filter(
     (b) =>
@@ -430,281 +379,231 @@ export default function AdminPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F0F7FA] font-sans text-gray-800 flex flex-col">
-      {/* ── Toast Notification ── */}
+    <div className="min-h-screen bg-[#fff7ed] font-sans text-gray-800 flex flex-col">
+      {/* Toast Notification */}
       {toast.show && (
         <div className="fixed top-6 right-6 z-50 animate-bounce">
-          <div
-            className={`px-5 py-3 rounded-2xl shadow-xl border-2 flex items-center gap-3 text-sm font-bold text-white ${
-              toast.type === "success"
-                ? "bg-emerald-600 border-emerald-700"
-                : "bg-blue-600 border-blue-700"
-            }`}
-          >
-            <FiCheckCircle size={18} />
-            <span>{toast.text}</span>
+          <div className="px-6 py-3 rounded-full shadow-xl bg-orange-500 text-white text-sm font-bold">
+            {toast.text}
           </div>
         </div>
       )}
 
-      {/* ── Topbar Khusus Admin ── */}
-      <header className="bg-white border-b-4 border-[#173E7A] sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Logo & Judul Dashboard */}
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 bg-[#2A5BA8] text-white rounded-xl border-2 border-[#173E7A] shadow-[2px_2px_0px_#173E7A] flex items-center justify-center font-black text-lg">
-              SA
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-lg sm:text-xl font-black text-[#173E7A] tracking-tight uppercase leading-none">
-                  ADMIN DASHBOARD
-                </h1>
-                <span className="hidden sm:inline-block bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full border border-emerald-300">
-                  LocalStorage Active
-                </span>
-              </div>
-              <p className="text-xs text-gray-500 font-semibold mt-0.5">
-                SMA Negeri 1 Pemalang
-              </p>
-            </div>
+      {/* ── Top Header Banner (Biru Seger seperti Header Berita) ── */}
+      <section className="bg-[#b3e5fc] pt-10 pb-16 px-4 sm:px-6 relative overflow-hidden text-center">
+        <div className="max-w-6xl mx-auto relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-left">
+            <span className="inline-block bg-white/70 backdrop-blur-sm text-orange-600 text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider mb-2">
+              Panel Pengelola
+            </span>
+            <h1 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white drop-shadow-[2px_2px_0px_#0284c7]">
+              Dashboard Admin
+            </h1>
+            <p className="text-[#0f3756] text-xs sm:text-sm font-bold mt-1">
+              SMA Negeri 1 Pemalang &bull; Data tersimpan di LocalStorage
+            </p>
           </div>
 
-          {/* Quick Actions */}
           <div className="flex items-center gap-3">
             <Link
               href="/"
               target="_blank"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold bg-[#E8F7FD] text-[#2A5BA8] border-2 border-[#2A5BA8]/40 hover:bg-[#2A5BA8] hover:text-white px-3.5 py-2 rounded-xl transition-all"
-              title="Buka Website Sekolah di Tab Baru"
+              className="bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md transition-all"
             >
-              <FiExternalLink size={15} />
-              <span className="hidden sm:inline">Lihat Website</span>
+              Lihat Website
             </Link>
-
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold bg-rose-50 text-rose-600 border-2 border-rose-200 hover:bg-rose-600 hover:text-white px-3.5 py-2 rounded-xl transition-all cursor-pointer"
+              className="bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition-all cursor-pointer"
             >
-              <FiLogOut size={15} />
-              <span className="hidden sm:inline">Logout</span>
+              Logout
             </button>
           </div>
         </div>
-      </header>
 
-      {/* ── Main Container: Sidebar Tabs + Content Area ── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* ── Sidebar Navigasi Tab ── */}
-        <aside className="lg:col-span-3 flex flex-col gap-3">
-          <div className="bg-white rounded-3xl border-2 border-gray-200 shadow-sm p-3 flex flex-row lg:flex-col gap-2 overflow-x-auto">
-            <button
-              onClick={() => setActiveTab("berita")}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer whitespace-nowrap text-left border-2 ${
-                activeTab === "berita"
-                  ? "bg-[#2A5BA8] text-white border-[#173E7A] shadow-[0_4px_0_#173E7A]"
-                  : "bg-white text-gray-700 border-transparent hover:bg-gray-100"
-              }`}
-            >
-              <FiFileText size={18} />
-              <span>Kelola Berita ({beritaList.length})</span>
-            </button>
+        {/* Wave Divider Transition ke Konten */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none translate-y-1">
+          <svg
+            className="relative block w-full h-[35px] sm:h-[45px]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,60 C320,110 520,10 720,70 C920,120 1120,20 1440,65 L1440,120 L0,120 Z"
+              fill="#fff7ed"
+            ></path>
+          </svg>
+        </div>
+      </section>
 
-            <button
-              onClick={() => setActiveTab("sekolah")}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer whitespace-nowrap text-left border-2 ${
-                activeTab === "sekolah"
-                  ? "bg-[#2A5BA8] text-white border-[#173E7A] shadow-[0_4px_0_#173E7A]"
-                  : "bg-white text-gray-700 border-transparent hover:bg-gray-100"
-              }`}
-            >
-              <FiHome size={18} />
-              <span>Profil Sekolah</span>
-            </button>
+      {/* ── Main Content Container ── */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
+        {/* Navigation Tabs (Pill Buttons) */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button
+            onClick={() => setActiveTab("berita")}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === "berita"
+                ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30 scale-105"
+                : "bg-white text-gray-700 hover:text-orange-600 border border-gray-200 shadow-sm"
+            }`}
+          >
+            Kelola Berita ({beritaList.length})
+          </button>
 
-            <button
-              onClick={() => setActiveTab("akun")}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer whitespace-nowrap text-left border-2 ${
-                activeTab === "akun"
-                  ? "bg-[#2A5BA8] text-white border-[#173E7A] shadow-[0_4px_0_#173E7A]"
-                  : "bg-white text-gray-700 border-transparent hover:bg-gray-100"
-              }`}
-            >
-              <FiKey size={18} />
-              <span>Akun &amp; Password</span>
-            </button>
-          </div>
+          <button
+            onClick={() => setActiveTab("sekolah")}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === "sekolah"
+                ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30 scale-105"
+                : "bg-white text-gray-700 hover:text-orange-600 border border-gray-200 shadow-sm"
+            }`}
+          >
+            Profil Sekolah
+          </button>
 
-          {/* Info Card Kecil di Bawah Nav */}
-          <div className="hidden lg:block bg-[#FFF1C9] border-2 border-[#FFD83A] rounded-3xl p-5 text-xs text-[#173E7A]">
-            <h4 className="font-black uppercase mb-1.5 flex items-center gap-1.5 text-orange-800">
-              <FiCheckCircle size={14} /> Sinkronisasi Otomatis
-            </h4>
-            <p className="font-medium text-gray-700 leading-relaxed">
-              Semua penambahan berita atau pembaruan profil yang Anda simpan di sini akan langsung disimpan di browser <strong>LocalStorage</strong> dan tampil di halaman publik sekolah.
-            </p>
-          </div>
-        </aside>
+          <button
+            onClick={() => setActiveTab("akun")}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === "akun"
+                ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30 scale-105"
+                : "bg-white text-gray-700 hover:text-orange-600 border border-gray-200 shadow-sm"
+            }`}
+          >
+            Ganti Password
+          </button>
+        </div>
 
-        {/* ── Content Area Sesuai Tab Aktif ── */}
-        <section className="lg:col-span-9">
-          {/* ═══════════════════════════════════════════════════════
-              TAB 1: KELOLA BERITA
-             ═══════════════════════════════════════════════════════ */}
-          {activeTab === "berita" && (
-            <div className="space-y-6">
-              {/* Header Tab Berita + Search + Tombol Tambah */}
-              <div className="bg-white rounded-3xl border-2 border-gray-200 shadow-sm p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#173E7A]">
-                    Daftar Berita &amp; Kegiatan
-                  </h2>
-                  <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-0.5">
-                    Kelola artikel, informasi PPDB, dan prestasi sekolah
-                  </p>
-                </div>
+        {/* ═══════════════════════════════════════════════════════
+            TAB 1: KELOLA BERITA
+           ═══════════════════════════════════════════════════════ */}
+        {activeTab === "berita" && (
+          <div className="space-y-6">
+            {/* Action Bar */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-orange-500/5 p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="w-full sm:w-auto">
+                <h2 className="text-xl sm:text-2xl font-black text-gray-800">
+                  Daftar Berita SMANSA
+                </h2>
+                <p className="text-xs text-gray-500 font-medium">
+                  Tambah, ubah, atau hapus artikel berita sekolah
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                <input
+                  type="text"
+                  placeholder="Cari judul / kategori..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full sm:w-64 px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-full text-xs font-medium outline-none transition-all"
+                />
 
                 <button
                   onClick={openAddModal}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 active:translate-y-0.5 text-white px-5 py-3 rounded-2xl font-black text-sm uppercase tracking-wide border-2 border-orange-600 shadow-[0_4px_0_#ea580c] hover:-translate-y-0.5 transition-all cursor-pointer"
+                  className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer"
                 >
-                  <FiPlus size={18} />
-                  Tambah Berita Baru
+                  + Tambah Berita
                 </button>
               </div>
+            </div>
 
-              {/* Bar Pencarian */}
-              <div className="bg-white rounded-2xl border-2 border-gray-200 p-2.5 flex items-center gap-3">
-                <FiSearch size={20} className="text-gray-400 ml-2" />
-                <input
-                  type="text"
-                  placeholder="Cari berita berdasarkan judul atau kategori..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-gray-800 outline-none placeholder:text-gray-400"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="text-gray-400 hover:text-gray-600 p-1"
-                  >
-                    <FiX size={18} />
-                  </button>
-                )}
+            {/* List Berita Cards */}
+            {filteredBerita.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-dashed border-gray-300 p-12 text-center text-gray-400 font-medium text-sm">
+                Tidak ada berita yang ditemukan.
               </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {filteredBerita.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white border border-gray-100 shadow-xl shadow-orange-500/5 rounded-2xl p-4 flex gap-4 hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden shrink-0 bg-gray-100 relative">
+                      <ImageSlot
+                        src={item.gambar}
+                        alt={item.judul}
+                        label="foto"
+                        className="w-full h-full"
+                        imageClassName="object-cover"
+                        sizes="120px"
+                      />
+                    </div>
 
-              {/* List Berita */}
-              {filteredBerita.length === 0 ? (
-                <div className="bg-white rounded-3xl border-2 border-dashed border-gray-300 p-12 text-center">
-                  <FiFileText size={40} className="mx-auto text-gray-300 mb-3" />
-                  <h3 className="text-lg font-bold text-gray-600">
-                    Tidak ada berita yang cocok
-                  </h3>
-                  <p className="text-xs text-gray-400 mt-1">
-                    Coba ganti kata kunci pencarian atau tambah berita baru.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredBerita.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-3xl border-2 border-gray-200 hover:border-[#2A5BA8] transition-all p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-sm group"
-                    >
-                      {/* Thumbnail & Detail Teks */}
-                      <div className="flex items-start sm:items-center gap-4 flex-1 min-w-0">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border-2 border-gray-200 relative bg-gray-100">
-                          <ImageSlot
-                            src={item.gambar}
-                            alt={item.judul}
-                            label="foto"
-                            className="w-full h-full"
-                            imageClassName="object-cover"
-                            sizes="100px"
-                          />
+                    <div className="flex-1 min-w-0 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="bg-orange-100 text-orange-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            {item.kategori}
+                          </span>
+                          <span className="text-[11px] text-gray-400 font-medium">
+                            {item.tanggal}
+                          </span>
                         </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                            <span className="bg-orange-100 text-orange-700 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full border border-orange-200">
-                              {item.kategori}
-                            </span>
-                            <span className="text-xs text-gray-400 font-semibold">
-                              {item.tanggal}
-                            </span>
-                          </div>
-
-                          <h3 className="text-base sm:text-lg font-black text-gray-900 group-hover:text-[#2A5BA8] transition-colors line-clamp-1">
-                            {item.judul}
-                          </h3>
-
-                          <p className="text-xs sm:text-sm text-gray-500 font-medium line-clamp-2 mt-1">
-                            {item.ringkasan}
-                          </p>
-                        </div>
+                        <h3 className="text-sm sm:text-base font-black text-gray-800 line-clamp-2 leading-snug">
+                          {item.judul}
+                        </h3>
                       </div>
 
-                      {/* Tombol Aksi */}
-                      <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                      <div className="flex items-center gap-2 mt-3 pt-2 border-t border-gray-100">
                         <Link
                           href={`/berita/${item.id}`}
                           target="_blank"
-                          className="p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors"
-                          title="Lihat di halaman publik"
+                          className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full transition-colors"
                         >
-                          <FiEye size={16} />
+                          Lihat
                         </Link>
-
                         <button
                           onClick={() => openEditModal(item)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-bold text-xs border border-blue-200 transition-all cursor-pointer"
-                          title="Edit Berita"
+                          className="bg-orange-50 hover:bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer"
                         >
-                          <FiEdit size={14} />
-                          <span>Edit</span>
+                          Edit
                         </button>
-
                         <button
                           onClick={() => setDeleteTarget(item)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-700 font-bold text-xs border border-rose-200 transition-all cursor-pointer"
-                          title="Hapus Berita"
+                          className="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ml-auto"
                         >
-                          <FiTrash2 size={14} />
-                          <span>Hapus</span>
+                          Hapus
                         </button>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
-          {/* ═══════════════════════════════════════════════════════
-              TAB 2: PROFIL SEKOLAH
-             ═══════════════════════════════════════════════════════ */}
-          {activeTab === "sekolah" && (
-            <div className="bg-white rounded-3xl border-2 border-gray-200 shadow-sm p-6 sm:p-8">
-              <div className="border-b-2 border-gray-100 pb-5 mb-6">
-                <h2 className="text-xl sm:text-2xl font-black text-[#173E7A]">
-                  Informasi Identitas Sekolah
+        {/* ═══════════════════════════════════════════════════════
+            TAB 2: PROFIL SEKOLAH (Outer Blue Box Style Home)
+           ═══════════════════════════════════════════════════════ */}
+        {activeTab === "sekolah" && (
+          <div className="bg-[#b3e5fc] border-4 sm:border-[8px] border-[#81d4fa] p-3 sm:p-6 rounded-[2rem] shadow-xl shadow-sky-500/15">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-white shadow-sm">
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-2">
+                  Data Pokok
+                </span>
+                <h2 className="text-2xl font-black text-gray-900">
+                  Identitas Sekolah
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-0.5">
-                  Ubah data pokok sekolah. Perubahan akan langsung tampil di navbar, footer, dan profil sekolah.
+                <p className="text-xs text-gray-500 font-medium">
+                  Perubahan akan otomatis tersimpan di LocalStorage dan tampil di Navbar, Footer, serta Profil sekolah.
                 </p>
               </div>
 
               {sekolahSaveSuccess && (
-                <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-emerald-800 text-xs sm:text-sm font-bold flex items-center gap-2">
-                  <FiCheckCircle size={18} className="text-emerald-600" />
-                  <span>Data profil sekolah berhasil disimpan ke LocalStorage!</span>
+                <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold text-center">
+                  Data profil sekolah berhasil disimpan!
                 </div>
               )}
 
-              <form onSubmit={handleSaveSekolah} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <form onSubmit={handleSaveSekolah} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                       Nama Sekolah
                     </label>
                     <input
@@ -714,12 +613,12 @@ export default function AdminPage() {
                       onChange={(e) =>
                         setSekolahForm({ ...sekolahForm, nama: e.target.value })
                       }
-                      className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                       Kepala Sekolah
                     </label>
                     <input
@@ -731,12 +630,12 @@ export default function AdminPage() {
                           kepalaSekolah: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                       Nomor Telepon
                     </label>
                     <input
@@ -745,12 +644,12 @@ export default function AdminPage() {
                       onChange={(e) =>
                         setSekolahForm({ ...sekolahForm, telepon: e.target.value })
                       }
-                      className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                       Email Resmi
                     </label>
                     <input
@@ -759,18 +658,18 @@ export default function AdminPage() {
                       onChange={(e) =>
                         setSekolahForm({ ...sekolahForm, email: e.target.value })
                       }
-                      className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                      Akreditasi
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                      Akreditasi (Grade / Nilai / Tahun)
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       <input
                         type="text"
-                        placeholder="Huruf (A)"
+                        placeholder="A"
                         value={sekolahForm.akreditasi}
                         onChange={(e) =>
                           setSekolahForm({
@@ -778,11 +677,11 @@ export default function AdminPage() {
                             akreditasi: e.target.value,
                           })
                         }
-                        className="px-3 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] rounded-xl font-semibold text-gray-800 outline-none text-sm text-center"
+                        className="px-3 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none text-center"
                       />
                       <input
                         type="number"
-                        placeholder="Nilai (96)"
+                        placeholder="96"
                         value={sekolahForm.nilaiAkreditasi}
                         onChange={(e) =>
                           setSekolahForm({
@@ -790,11 +689,11 @@ export default function AdminPage() {
                             nilaiAkreditasi: e.target.value,
                           })
                         }
-                        className="px-3 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] rounded-xl font-semibold text-gray-800 outline-none text-sm text-center"
+                        className="px-3 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none text-center"
                       />
                       <input
                         type="number"
-                        placeholder="Tahun (2022)"
+                        placeholder="2022"
                         value={sekolahForm.tahunAkreditasi}
                         onChange={(e) =>
                           setSekolahForm({
@@ -802,13 +701,13 @@ export default function AdminPage() {
                             tahunAkreditasi: e.target.value,
                           })
                         }
-                        className="px-3 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] rounded-xl font-semibold text-gray-800 outline-none text-sm text-center"
+                        className="px-3 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none text-center"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                       Kurikulum
                     </label>
                     <input
@@ -820,13 +719,13 @@ export default function AdminPage() {
                           kurikulum: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                     Slogan / Tagline Sekolah
                   </label>
                   <input
@@ -835,27 +734,27 @@ export default function AdminPage() {
                     onChange={(e) =>
                       setSekolahForm({ ...sekolahForm, slogan: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                     Alamat Lengkap
                   </label>
                   <textarea
-                    rows={3}
+                    rows={2}
                     value={sekolahForm.alamat}
                     onChange={(e) =>
                       setSekolahForm({ ...sekolahForm, alamat: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                    Domain Website Resmi
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                    Domain Website
                   </label>
                   <input
                     type="text"
@@ -863,181 +762,172 @@ export default function AdminPage() {
                     onChange={(e) =>
                       setSekolahForm({ ...sekolahForm, website: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/30 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
                   />
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-3">
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:translate-y-0.5 text-white px-7 py-3.5 rounded-xl font-black text-sm uppercase tracking-wide border-2 border-orange-600 shadow-[0_4px_0_#ea580c] hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all text-xs uppercase tracking-wider cursor-pointer"
                   >
-                    <FiSave size={18} />
-                    Simpan Perubahan Profil
+                    Simpan Perubahan
                   </button>
                 </div>
               </form>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* ═══════════════════════════════════════════════════════
-              TAB 3: AKUN & KEAMANAN
-             ═══════════════════════════════════════════════════════ */}
-          {activeTab === "akun" && (
-            <div className="bg-white rounded-3xl border-2 border-gray-200 shadow-sm p-6 sm:p-8 max-w-xl">
-              <div className="border-b-2 border-gray-100 pb-5 mb-6">
-                <h2 className="text-xl sm:text-2xl font-black text-[#173E7A]">
-                  Ganti Password Admin
-                </h2>
-                <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-0.5">
-                  Ubah password akun admin yang tersimpan di LocalStorage
-                </p>
+        {/* ═══════════════════════════════════════════════════════
+            TAB 3: AKUN & KEAMANAN
+           ═══════════════════════════════════════════════════════ */}
+        {activeTab === "akun" && (
+          <div className="max-w-xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-xl shadow-orange-500/5 p-6 sm:p-8">
+            <div className="border-b border-gray-100 pb-4 mb-6">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-2">
+                Keamanan
+              </span>
+              <h2 className="text-2xl font-black text-gray-900">
+                Ganti Password Admin
+              </h2>
+              <p className="text-xs text-gray-500 font-medium">
+                Password baru akan disimpan di LocalStorage browser ini
+              </p>
+            </div>
+
+            {passwordMsg.text && (
+              <div
+                className={`mb-6 p-4 rounded-xl text-xs font-bold text-center ${
+                  passwordMsg.type === "success"
+                    ? "bg-emerald-50 border border-emerald-200 text-emerald-800"
+                    : "bg-red-50 border border-red-200 text-red-800"
+                }`}
+              >
+                {passwordMsg.text}
+              </div>
+            )}
+
+            <form onSubmit={handleChangePassword} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Password Lama
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={passwordForm.oldPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      oldPassword: e.target.value,
+                    })
+                  }
+                  placeholder="Masukkan password saat ini"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
+                />
               </div>
 
-              {passwordMsg.text && (
-                <div
-                  className={`mb-6 p-4 rounded-2xl border-2 text-xs sm:text-sm font-bold flex items-center gap-2 ${
-                    passwordMsg.type === "success"
-                      ? "bg-emerald-50 border-emerald-300 text-emerald-800"
-                      : "bg-red-50 border-red-300 text-red-800"
-                  }`}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Password Baru
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={passwordForm.newPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      newPassword: e.target.value,
+                    })
+                  }
+                  placeholder="Minimal 5 karakter"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Konfirmasi Password Baru
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={passwordForm.confirmPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                  placeholder="Ketik ulang password baru"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all"
+                />
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all text-xs uppercase tracking-wider cursor-pointer"
                 >
-                  {passwordMsg.type === "success" ? (
-                    <FiCheckCircle size={18} className="text-emerald-600 shrink-0" />
-                  ) : (
-                    <FiAlertCircle size={18} className="text-red-600 shrink-0" />
-                  )}
-                  <span>{passwordMsg.text}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleChangePassword} className="space-y-5">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                    Password Lama
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    value={passwordForm.oldPassword}
-                    onChange={(e) =>
-                      setPasswordForm({
-                        ...passwordForm,
-                        oldPassword: e.target.value,
-                      })
-                    }
-                    placeholder="Masukkan password saat ini"
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                    Password Baru (Minimal 5 Karakter)
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    value={passwordForm.newPassword}
-                    onChange={(e) =>
-                      setPasswordForm({
-                        ...passwordForm,
-                        newPassword: e.target.value,
-                      })
-                    }
-                    placeholder="Masukkan password baru"
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-2 tracking-wide">
-                    Konfirmasi Password Baru
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    value={passwordForm.confirmPassword}
-                    onChange={(e) =>
-                      setPasswordForm({
-                        ...passwordForm,
-                        confirmPassword: e.target.value,
-                      })
-                    }
-                    placeholder="Ketik ulang password baru"
-                    className="w-full px-4 py-3 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl font-semibold text-gray-800 outline-none text-sm"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 bg-[#2A5BA8] hover:bg-[#173E7A] active:translate-y-0.5 text-white px-6 py-3.5 rounded-xl font-black text-sm uppercase tracking-wide border-2 border-[#173E7A] shadow-[0_4px_0_#173E7A] hover:-translate-y-0.5 transition-all cursor-pointer"
-                  >
-                    <FiKey size={16} />
-                    Perbarui Password
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-        </section>
+                  Perbarui Password
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </main>
 
       {/* ═══════════════════════════════════════════════════════════
-          MODAL: TAMBAH & EDIT BERITA
+          MODAL: TAMBAH & EDIT BERITA (Soft Card Style)
          ═══════════════════════════════════════════════════════════ */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-[2.5rem] border-4 border-[#173E7A] shadow-[8px_8px_0px_#173E7A] w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-[2rem] border border-gray-100 shadow-2xl shadow-orange-500/10 w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="p-6 border-b-2 border-gray-100 flex items-center justify-between bg-[#E8F7FD]/50">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-500 text-white flex items-center justify-center font-bold">
-                  {editingItem ? <FiEdit size={18} /> : <FiPlus size={20} />}
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-black text-[#173E7A]">
-                    {editingItem ? "Edit Berita Sekolah" : "Tambah Berita Baru"}
-                  </h3>
-                  <p className="text-xs text-gray-500 font-semibold">
-                    Isi informasi artikel berita dan unggah foto
-                  </p>
-                </div>
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-black text-gray-900">
+                  {editingItem ? "Edit Berita" : "Tambah Berita"}
+                </h3>
+                <p className="text-xs text-gray-500 font-medium">
+                  Isi data berita dan unggah foto
+                </p>
               </div>
 
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="w-9 h-9 rounded-full bg-white border-2 border-gray-200 text-gray-500 hover:text-black hover:border-black flex items-center justify-center transition-all cursor-pointer"
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors text-sm font-bold cursor-pointer"
               >
-                <FiX size={18} />
+                &times;
               </button>
             </div>
 
-            {/* Modal Body Form */}
+            {/* Modal Body */}
             <form
               onSubmit={handleSaveBerita}
-              className="p-6 space-y-5 overflow-y-auto flex-1 text-sm font-semibold text-gray-700"
+              className="p-6 space-y-4 overflow-y-auto flex-1 text-sm font-medium text-gray-700"
             >
               <div>
-                <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                   Judul Berita *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Contoh: Tim Robotik SMAN 1 Pemalang Raih Medali Emas"
+                  placeholder="Judul artikel berita..."
                   value={beritaForm.judul}
                   onChange={(e) =>
                     setBeritaForm({ ...beritaForm, judul: e.target.value })
                   }
-                  className="w-full px-4 py-2.5 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl text-gray-800 outline-none"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-gray-800 outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
                     Kategori
                   </label>
                   <select
@@ -1045,7 +935,7 @@ export default function AdminPage() {
                     onChange={(e) =>
                       setBeritaForm({ ...beritaForm, kategori: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl text-gray-800 outline-none"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-gray-800 outline-none"
                   >
                     <option value="Kegiatan">Kegiatan</option>
                     <option value="Prestasi">Prestasi</option>
@@ -1057,8 +947,8 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
-                    Tanggal Tampilan
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                    Tanggal
                   </label>
                   <input
                     type="text"
@@ -1067,14 +957,14 @@ export default function AdminPage() {
                     onChange={(e) =>
                       setBeritaForm({ ...beritaForm, tanggal: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl text-gray-800 outline-none"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-gray-800 outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
-                  Ringkasan Singkat (Muncul di kartu berita) *
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Ringkasan Singkat *
                 </label>
                 <textarea
                   required
@@ -1084,45 +974,43 @@ export default function AdminPage() {
                   onChange={(e) =>
                     setBeritaForm({ ...beritaForm, ringkasan: e.target.value })
                   }
-                  className="w-full px-4 py-2.5 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl text-gray-800 outline-none"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-gray-800 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
-                  Isi Lengkap Berita (Pisahkan paragraf dengan baris baru / Enter)
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Isi Lengkap Berita (Gunakan Enter untuk baris baru)
                 </label>
                 <textarea
-                  rows={5}
-                  placeholder="Tuliskan isi berita lengkap di sini..."
+                  rows={4}
+                  placeholder="Tuliskan isi berita lengkap..."
                   value={beritaForm.isi}
                   onChange={(e) =>
                     setBeritaForm({ ...beritaForm, isi: e.target.value })
                   }
-                  className="w-full px-4 py-2.5 bg-[#E8F7FD]/40 border-2 border-gray-200 focus:border-[#2A5BA8] focus:bg-white rounded-xl text-gray-800 outline-none"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white rounded-xl text-gray-800 outline-none"
                 />
               </div>
 
-              {/* Upload Foto */}
               <div>
-                <label className="block text-xs font-black uppercase text-[#173E7A] mb-1.5 tracking-wide">
-                  Upload Foto Berita
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
+                  Foto Berita
                 </label>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                  <div className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-gray-300 relative bg-gray-100 shrink-0">
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden border border-gray-200 relative bg-gray-100 shrink-0">
                     <ImageSlot
                       src={imagePreview || "/smansa_foto1.webp"}
                       alt="Preview Foto"
                       label="preview"
                       className="w-full h-full"
                       imageClassName="object-cover"
-                      sizes="100px"
+                      sizes="80px"
                     />
                   </div>
 
                   <div className="flex-1">
-                    <label className="inline-flex items-center gap-2 bg-[#2A5BA8] hover:bg-[#173E7A] text-white px-4 py-2 rounded-xl font-bold text-xs cursor-pointer transition-all border border-[#173E7A]">
-                      <FiImage size={15} />
+                    <label className="inline-block bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold px-4 py-2 rounded-full text-xs uppercase cursor-pointer transition-colors border border-orange-200">
                       <span>{isCompressingImg ? "Mengompresi..." : "Pilih File Foto"}</span>
                       <input
                         type="file"
@@ -1131,19 +1019,18 @@ export default function AdminPage() {
                         className="hidden"
                       />
                     </label>
-                    <p className="text-[11px] text-gray-500 font-medium mt-1.5">
-                      Pilih file foto dari laptop/HP Anda. Foto otomatis dioptimalkan dan disimpan ke LocalStorage.
+                    <p className="text-[11px] text-gray-400 mt-1">
+                      Otomatis dioptimalkan dan disimpan ke LocalStorage.
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Modal Actions */}
-              <div className="pt-4 border-t-2 border-gray-100 flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-gray-100 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 hover:bg-gray-100 font-bold text-xs uppercase cursor-pointer"
+                  className="px-5 py-2 rounded-full text-gray-600 hover:bg-gray-100 font-bold text-xs uppercase cursor-pointer"
                 >
                   Batal
                 </button>
@@ -1151,9 +1038,8 @@ export default function AdminPage() {
                 <button
                   type="submit"
                   disabled={isCompressingImg}
-                  className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:translate-y-0.5 text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-wide border-2 border-orange-600 shadow-[0_3px_0_#ea580c] cursor-pointer"
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2 rounded-full shadow-md shadow-orange-500/20 text-xs uppercase tracking-wider cursor-pointer"
                 >
-                  <FiSave size={15} />
                   Simpan Berita
                 </button>
               </div>
@@ -1163,35 +1049,31 @@ export default function AdminPage() {
       )}
 
       {/* ═══════════════════════════════════════════════════════════
-          MODAL: KONFIRMASI HAPUS BERITA
+          MODAL: KONFIRMASI HAPUS
          ═══════════════════════════════════════════════════════════ */}
       {deleteTarget && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl border-4 border-rose-600 shadow-[8px_8px_0px_#e11d48] w-full max-w-md p-6 text-center animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 mx-auto mb-4 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center border-2 border-rose-300">
-              <FiTrash2 size={28} />
-            </div>
-
-            <h3 className="text-xl font-black text-gray-900 mb-2">
-              Hapus Berita Ini?
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-2xl w-full max-w-sm p-6 text-center animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-lg font-black text-gray-900 mb-2">
+              Hapus Berita?
             </h3>
-            <p className="text-xs sm:text-sm text-gray-600 font-medium mb-6">
-              Berita &ldquo;<strong className="text-gray-900">{deleteTarget.judul}</strong>&rdquo; akan dihapus dari daftar berita dan LocalStorage.
+            <p className="text-xs text-gray-600 mb-6">
+              Berita &ldquo;<strong className="text-gray-900">{deleteTarget.judul}</strong>&rdquo; akan dihapus.
             </p>
 
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={() => setDeleteTarget(null)}
-                className="px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 hover:bg-gray-100 font-bold text-xs uppercase cursor-pointer"
+                className="px-5 py-2 rounded-full text-gray-600 hover:bg-gray-100 font-bold text-xs uppercase cursor-pointer"
               >
                 Batal
               </button>
 
               <button
                 onClick={handleConfirmDelete}
-                className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-wide border-2 border-rose-700 shadow-[0_3px_0_#be123c] cursor-pointer"
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wide shadow-md shadow-red-500/20 cursor-pointer"
               >
-                Ya, Hapus
+                Hapus
               </button>
             </div>
           </div>

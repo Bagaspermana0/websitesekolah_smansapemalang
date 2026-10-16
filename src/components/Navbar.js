@@ -199,21 +199,6 @@ export default function Navbar() {
                 );
               })}
             </nav>
-
-            {/* Tombol Akses Portal Admin */}
-            <Link
-              href="/admin"
-              className={`p-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
-                scrolled
-                  ? "text-gray-600 hover:text-orange-600 hover:bg-orange-50 border border-gray-200"
-                  : "text-white/90 hover:text-white bg-white/20 backdrop-blur-md border border-white/30"
-              }`}
-              title="Portal Admin SMANSA"
-              aria-label="Portal Admin"
-            >
-              <FiLock size={15} />
-              <span className="hidden xl:inline">Admin</span>
-            </Link>
           </div>
 
           {/* Mobile Buttons */}
@@ -287,14 +272,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            <Link
-              href="/admin"
-              className="flex items-center gap-4 px-5 py-3.5 rounded-2xl text-base font-black transition-all border-2 bg-blue-50 text-[#173E7A] border-blue-200 hover:bg-[#173E7A] hover:text-white hover:border-[#173E7A] shadow-sm mt-2"
-            >
-              <FiLock size={20} className="text-[#173E7A] group-hover:text-white" />
-              Portal Admin
-            </Link>
           </nav>
 
           <div className="mt-auto p-6 bg-white/50 border-t-4 border-orange-200/50 backdrop-blur-sm">
