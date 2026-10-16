@@ -34,6 +34,7 @@ export default function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const [isCompressingImg, setIsCompressingImg] = useState(false);
   const [beritaForm, setBeritaForm] = useState({
@@ -129,12 +130,11 @@ export default function AdminPage() {
   };
 
   const handleLogout = () => {
-    if (confirm("Apakah Anda yakin ingin logout?")) {
-      logoutAdmin();
-      setLoggedIn(false);
-      setLoginForm({ username: "", password: "" });
-      showToast("Berhasil logout.", "info");
-    }
+    logoutAdmin();
+    setLoggedIn(false);
+    setIsLogoutModalOpen(false);
+    setLoginForm({ username: "", password: "" });
+    showToast("Berhasil logout.", "info");
   };
 
   const openAddModal = () => {
@@ -372,10 +372,11 @@ export default function AdminPage() {
   // ═══════════════════════════════════════════════════════════════
   // TAMPILAN 2: DASHBOARD ADMIN (Style Home: Biru, Kuning, Putih, Orange)
   // ═══════════════════════════════════════════════════════════════
-  const filteredBerita = beritaList.filter(
+  const filteredBerita = (beritaList || []).filter(
     (b) =>
-      b.judul?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.kategori?.toLowerCase().includes(searchQuery.toLowerCase())
+      b &&
+      (b.judul?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        b.kategori?.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -413,7 +414,8 @@ export default function AdminPage() {
               Lihat Website
             </Link>
             <button
-              onClick={handleLogout}
+              type="button"
+              onClick={() => setIsLogoutModalOpen(true)}
               className="bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               Logout
@@ -1074,6 +1076,40 @@ export default function AdminPage() {
                 className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wide shadow-md shadow-red-500/20 cursor-pointer"
               >
                 Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════
+          MODAL: KONFIRMASI LOGOUT
+         ═══════════════════════════════════════════════════════════ */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-2xl w-full max-w-sm p-6 text-center animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-lg font-black text-gray-900 mb-2">
+              Konfirmasi Logout
+            </h3>
+            <p className="text-xs text-gray-600 mb-6">
+              Apakah Anda yakin ingin keluar dari Panel Pengelola Admin?
+            </p>
+
+            <div className="flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="px-5 py-2 rounded-full text-gray-600 hover:bg-gray-100 font-bold text-xs uppercase cursor-pointer"
+              >
+                Batal
+              </button>
+
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-wide shadow-md shadow-red-500/20 cursor-pointer"
+              >
+                Ya, Logout
               </button>
             </div>
           </div>

@@ -46,17 +46,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Sembunyikan navbar publik di halaman /admin
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
-  const menuItems = [
-    { label: "Beranda", href: "/", ikon: FiHome },
-    { label: "Profil", href: "/about", ikon: FiUser },
-    { label: "Berita", href: "/berita", ikon: FiFileText },
-    { label: "Kontak", href: "/#kontak", ikon: FiPhone },
-  ];
+  const [activeTagline, setActiveTagline] = useState(0);
+  const [animClass, setAnimClass] = useState("translate-y-0 opacity-100");
 
   const taglines = [
     <div key="tagline" className="flex items-center gap-2">
@@ -83,10 +74,9 @@ export default function Navbar() {
     </div>,
   ];
 
-  const [activeTagline, setActiveTagline] = useState(0);
-  const [animClass, setAnimClass] = useState("translate-y-0 opacity-100");
-
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const interval = setInterval(() => {
       setAnimClass("-translate-y-4 opacity-0 transition-all duration-300 ease-in");
 
@@ -105,7 +95,19 @@ export default function Navbar() {
     }, 4500);
 
     return () => clearInterval(interval);
-  }, [taglines.length]);
+  }, [taglines.length, pathname]);
+
+  // Sembunyikan navbar publik di halaman /admin (harus setelah semua hook dipanggil)
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
+  const menuItems = [
+    { label: "Beranda", href: "/", ikon: FiHome },
+    { label: "Profil", href: "/about", ikon: FiUser },
+    { label: "Berita", href: "/berita", ikon: FiFileText },
+    { label: "Kontak", href: "/#kontak", ikon: FiPhone },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
