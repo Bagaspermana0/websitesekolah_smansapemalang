@@ -352,17 +352,6 @@ export default function AdminPage() {
                 </button>
               </div>
             </form>
-
-            {/* Kotak Info Kuning (Persis inner card kuning di Home) */}
-            <div className="mt-8 p-4 rounded-xl bg-[#fff9c4] border-2 border-[#fde047] text-gray-800 text-xs">
-              <div className="font-bold text-orange-700 mb-1">
-                Kredensial Default:
-              </div>
-              <div className="flex justify-between items-center text-gray-700 font-medium">
-                <span>Username: <strong className="text-black">admin</strong></span>
-                <span>Password: <strong className="text-black">admin123</strong></span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
